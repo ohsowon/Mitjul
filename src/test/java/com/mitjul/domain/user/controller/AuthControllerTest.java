@@ -4,6 +4,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import com.mitjul.domain.user.dto.SignupRequest;
+import com.mitjul.domain.user.service.UserService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,8 @@ class AuthControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
+    @Autowired
+    private UserService userService;
 
     @Test
     @DisplayName("유효한 요청이면 201과 함께 비밀번호를 뺀 회원 정보를 반환한다")
@@ -45,5 +49,21 @@ class AuthControllerTest {
                                 {"email":"not-an-email","password":"short","nickname":"책벌레"}
                                 """))
                 .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    @DisplayName("가입한 사용자가 올바른 자격증명으로 로그인하면 200과 Bearer 토큰을 받는다")
+    void login_valid_returnsToken() throws Exception {
+        userService.signup(new SignupRequest("login@mitjul.com", "password123", "로그인"));
+
+        mockMvc.perform(post("/api/v1/auth/login")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {"email":"login@mitjul.com","password":"password123"}
+                                """))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.success").value(true))
+                .andExpect(jsonPath("$.data.accessToken").isNotEmpty())
+                .andExpect(jsonPath("$.data.tokenType").value("Bearer"));
     }
 }

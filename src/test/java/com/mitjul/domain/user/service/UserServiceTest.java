@@ -3,8 +3,10 @@ package com.mitjul.domain.user.service;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import com.mitjul.domain.user.dto.LoginRequest;
 import com.mitjul.domain.user.dto.SignupRequest;
 import com.mitjul.domain.user.dto.SignupResponse;
+import com.mitjul.domain.user.dto.TokenResponse;
 import com.mitjul.domain.user.entity.User;
 import com.mitjul.domain.user.repository.UserRepository;
 import org.junit.jupiter.api.DisplayName;
@@ -24,6 +26,8 @@ class UserServiceTest {
     private UserRepository userRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    // ---------- 회원가입 ----------
 
     @Test
     @DisplayName("회원가입에 성공하면 id가 부여된 응답을 돌려준다")
@@ -56,5 +60,36 @@ class UserServiceTest {
         assertThatThrownBy(() -> userService.signup(
                 new SignupRequest("dup@mitjul.com", "password123", "중복시도")))
                 .isInstanceOf(IllegalStateException.class);
+    }
+
+    // ---------- 로그인 ----------
+
+    @Test
+    @DisplayName("올바른 자격증명으로 로그인하면 Bearer 토큰을 발급한다")
+    void login_success() {
+        userService.signup(new SignupRequest("login@mitjul.com", "password123", "로그인"));
+
+        TokenResponse response = userService.login(new LoginRequest("login@mitjul.com", "password123"));
+
+        assertThat(response.accessToken()).isNotBlank();
+        assertThat(response.tokenType()).isEqualTo("Bearer");
+    }
+
+    @Test
+    @DisplayName("비밀번호가 틀리면 예외가 발생한다")
+    void login_wrongPassword_throws() {
+        userService.signup(new SignupRequest("login@mitjul.com", "password123", "로그인"));
+
+        assertThatThrownBy(() -> userService.login(
+                new LoginRequest("login@mitjul.com", "wrongpassword")))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    @DisplayName("존재하지 않는 이메일이면 예외가 발생한다")
+    void login_nonexistentEmail_throws() {
+        assertThatThrownBy(() -> userService.login(
+                new LoginRequest("nobody@mitjul.com", "password123")))
+                .isInstanceOf(IllegalArgumentException.class);
     }
 }
