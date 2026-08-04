@@ -1,3 +1,17 @@
+# 줄바꿈(개행) 정규화 규칙
+# 기본: 모든 텍스트 파일을 저장소·작업 폴더 모두 LF로 통일한다.
+#   → git add 때 뜨던 "LF will be replaced by CRLF" 경고가 사라지고,
+#     Docker/Linux 배포·협업에서 "줄바꿈만 바뀐 diff" 잡음도 예방된다.
+#   (.gitattributes는 core.autocrlf 설정보다 우선한다)
+* text=auto eol=lf
+
+# (주의: .gitattributes는 줄 끝 인라인 주석을 지원하지 않는다. 주석은 반드시 별도 줄에.)
+
+# 예외: Gradle 래퍼 스크립트는 LF 필수
 /gradlew text eol=lf
+
+# 예외: Windows 배치 파일은 CRLF여야 정상 동작
 *.bat text eol=crlf
+
+# 예외: 바이너리는 줄바꿈 변환 금지
 *.jar binary
