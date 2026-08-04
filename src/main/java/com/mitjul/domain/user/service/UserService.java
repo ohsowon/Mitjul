@@ -4,6 +4,7 @@ import com.mitjul.domain.user.dto.LoginRequest;
 import com.mitjul.domain.user.dto.SignupRequest;
 import com.mitjul.domain.user.dto.SignupResponse;
 import com.mitjul.domain.user.dto.TokenResponse;
+import com.mitjul.domain.user.dto.UserResponse;
 import com.mitjul.domain.user.entity.User;
 import com.mitjul.domain.user.repository.UserRepository;
 import com.mitjul.global.security.JwtProvider;
@@ -59,5 +60,15 @@ public class UserService {
 
         String accessToken = jwtProvider.createAccessToken(user.getId(), user.getEmail());
         return TokenResponse.bearer(accessToken);
+    }
+
+    /**
+     * 내 정보 조회. JWT 필터가 넣어 준 userId로 회원을 찾아 응답 DTO로 반환한다.
+     */
+    @Transactional(readOnly = true)
+    public UserResponse getMyInfo(Long userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
+        return UserResponse.from(user);
     }
 }

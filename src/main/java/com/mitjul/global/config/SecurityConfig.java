@@ -1,5 +1,8 @@
 package com.mitjul.global.config;
 
+import com.mitjul.global.security.JwtAuthenticationFilter;
+import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -9,18 +12,21 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
  * Spring Security 설정.
  *
- * <p>이 서비스는 <b>JWT 기반 stateless REST API</b>다. 그래서 전통적인 세션·폼로그인 방식을 전부 끄고,
- * 요청마다 토큰으로 인증하는 구조로 맞춘다. (JWT 필터 자체는 다음 단계에서 추가)
+ * <p>이 서비스는 <b>JWT 기반 stateless REST API</b>다. 세션·폼로그인을 끄고, 요청마다 JWT로 인증한다.
  */
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfig {
 
-    /** 인증 없이 열어 둘 경로. 회원가입·로그인과 개발용 H2 콘솔. */
+    private final JwtAuthenticationFilter jwtAuthenticationFilter;
+
+    /** 인증 없이 열어 둘 경로. */
     private static final String[] PUBLIC_PATHS = {
             "/api/v1/auth/**", // 회원가입·로그인
             "/h2-console/**",  // 개발용 H2 콘솔 (dev 프로필에서만 실제로 켜짐)
@@ -43,7 +49,13 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(PUBLIC_PATHS).permitAll()
                         .anyRequest().authenticated()
-                );
+                )
+                // 인증 안 된 요청은 기본 403 대신 401을 준다 → 프론트가 "로그인 필요"를 구분하기 쉽다
+                .exceptionHandling(ex -> ex.authenticationEntryPoint(
+                        (request, response, authException) ->
+                                response.sendError(HttpServletResponse.SC_UNAUTHORIZED)))
+                // 우리 JWT 필터를 스프링 기본 인증 필터 자리 앞에 끼운다
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 
