@@ -1,0 +1,56 @@
+### Gradle ###
+.gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### Java ###
+*.class
+*.jar
+*.war
+*.log
+# Wrapper jar는 반드시 커밋한다. 이게 없으면 clone 후 ./gradlew 가 동작하지 않는다.
+# (위 *.jar 보다 뒤에 와야 예외가 적용된다 - gitignore는 나중 규칙이 우선)
+!gradle/wrapper/gradle-wrapper.jar
+hs_err_pid*
+replay_pid*
+
+### 비밀값 (CLAUDE.md §7) ###
+# 실제 키/비밀번호가 들어가는 파일은 절대 커밋하지 않는다.
+.env
+.env.local
+*.env
+!.env.example
+# 로컬에서만 쓰는 개인 설정 오버라이드
+src/main/resources/application-local.yml
+src/main/resources/application-secret.yml
+# 서비스 계정 키 파일 (예: Google Cloud Vision)
+*-credentials.json
+*-service-account.json
+
+### 업로드 파일 (로컬 스토리지 사용 시) ###
+uploads/
+
+### IDE - IntelliJ ###
+.idea/
+*.iws
+*.iml
+*.ipr
+out/
+
+### IDE - Eclipse / STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+bin/
+
+### IDE - VS Code ###
+.vscode/
+
+### OS ###
+.DS_Store
+Thumbs.db

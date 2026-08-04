@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: mitjul
+
+  # 프로필을 지정하지 않고 실행하면 로컬(H2) 설정으로 뜬다.
+  profiles:
+    default: dev
+
+  jpa:
+    # OSIV(Open Session In View)를 끈다.
+    # 켜져 있으면 영속성 컨텍스트가 컨트롤러/뷰까지 열려 있어 DB 커넥션을 오래 물고 있고,
+    # 트랜잭션 경계가 흐려진다. CLAUDE.md §7의 "트랜잭션 경계는 Service"를 강제하기 위해 끈다.
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+
+  servlet:
+    # 촬영 이미지 업로드는 multipart/form-data로 받는다 (CLAUDE.md §8)
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+server:
+  port: 8080

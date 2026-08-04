@@ -1,0 +1,23 @@
+# 운영 프로필 - PostgreSQL
+# 이 파일에는 실제 비밀값을 적지 않는다. 모든 값은 환경변수로 주입한다. (CLAUDE.md §7)
+# 필요한 환경변수 목록은 프로젝트 루트의 .env.example 참고.
+spring:
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      # 운영에서는 스키마를 코드가 건드리지 않는다. 엔티티와 실제 스키마가 다르면 기동 시 실패시킨다.
+      ddl-auto: validate
+    show-sql: false
+
+  h2:
+    console:
+      enabled: false
+
+logging:
+  level:
+    root: info
