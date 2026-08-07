@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * 인증 관련 엔드포인트(회원가입·로그인). 회원 도메인에 속하므로 user 패키지에 둔다.
  *
- * <p>컨트롤러는 얇게 유지한다: 요청 검증({@code @Valid})과 응답 포장(ApiResponse)만 담당하고,
+ * 컨트롤러는 얇게 유지한다: 요청 검증(@Valid)과 응답 포장(ApiResponse)만 담당하고,
  * 실제 로직은 Service에 위임한다.
  */
 @RestController

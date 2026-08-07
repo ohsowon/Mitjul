@@ -22,7 +22,7 @@ public class UserController {
 
     /**
      * 내 정보 조회. JwtAuthenticationFilter가 인증에 성공하면 principal에 userId가 들어 있고,
-     * {@code @AuthenticationPrincipal}로 그 값을 바로 주입받는다.
+     * 컨트롤러는 @AuthenticationPrincipal로 그 값을 바로 주입받는다.
      */
     @GetMapping("/me")
     public ResponseEntity<ApiResponse<UserResponse>> me(@AuthenticationPrincipal Long userId) {

@@ -15,10 +15,10 @@ import lombok.NoArgsConstructor;
 /**
  * 회원 엔티티.
  *
- * <p><b>테이블명을 {@code users}로 둔 이유</b>: {@code user}는 PostgreSQL·H2 등에서 예약어라
+ * 테이블명을 users로 둔 이유: user는 PostgreSQL·H2 등에서 예약어라
  * 테이블명으로 쓰면 쿼리가 깨질 수 있다. 개발 H2도 MODE=PostgreSQL로 맞춰 두었으므로 동일하게 적용된다.
  *
- * <p><b>비밀번호</b>는 여기서 문자열을 그대로 저장만 한다. BCrypt 해싱은 Service 계층(마일스톤 2)에서
+ * 비밀번호는 여기서 문자열을 그대로 저장만 한다. BCrypt 해싱은 Service 계층(마일스톤 2)에서
  * 처리한다 — 엔티티는 "무엇을 저장할지"만 알고, "어떻게 안전하게 만들지"는 서비스의 책임.
  */
 @Entity

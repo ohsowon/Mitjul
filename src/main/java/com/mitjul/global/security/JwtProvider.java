@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 /**
  * JWT 액세스 토큰 생성·검증 유틸.
  *
- * <p>비밀키(jwt.secret)로 HS256 서명한다. 비밀키는 환경변수로 주입하며(§7) 코드/깃에 두지 않는다.
+ * 비밀키(jwt.secret)로 HS256 서명한다. 비밀키는 환경변수로 주입하며(§7) 코드/깃에 두지 않는다.
  * 외부 라이브러리(jjwt) 의존을 이 한 곳에 가둬, 도메인·서비스 코드가 jjwt를 직접 모르게 한다.
  */
 @Component

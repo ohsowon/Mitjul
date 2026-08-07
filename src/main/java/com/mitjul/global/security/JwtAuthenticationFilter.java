@@ -17,11 +17,11 @@ import org.springframework.web.filter.OncePerRequestFilter;
 /**
  * 요청 헤더의 JWT를 검증해 인증 정보를 SecurityContext에 심는 필터.
  *
- * <p>매 요청마다 한 번 실행된다(OncePerRequestFilter). {@code Authorization: Bearer <token>} 헤더가
+ * 매 요청마다 한 번 실행된다(OncePerRequestFilter). Authorization: Bearer <token> 헤더가
  * 있고 토큰이 유효하면 "이 요청은 userId 사용자"라고 SecurityContext에 등록한다. 이후 컨트롤러는
- * {@code @AuthenticationPrincipal}로 그 userId를 꺼내 쓴다.
+ * 이를 @AuthenticationPrincipal로 꺼내 쓴다.
  *
- * <p>토큰이 없거나 무효하면 아무것도 하지 않고 통과시킨다 → 뒤의 인가 단계에서 보호된 경로는 401 처리된다.
+ * 토큰이 없거나 무효하면 아무것도 하지 않고 통과시킨다 → 뒤의 인가 단계에서 보호된 경로는 401 처리된다.
  */
 @Component
 @RequiredArgsConstructor

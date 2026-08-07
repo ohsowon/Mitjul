@@ -12,12 +12,12 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 /**
  * 모든 엔티티가 공통으로 갖는 생성/수정 시각을 담는 상위 클래스.
  *
- * <p>{@code @MappedSuperclass}라서 이 클래스 자체는 테이블이 되지 않는다. 대신 이걸 상속한
+ * 이 클래스는 @MappedSuperclass라서 그 자체로는 테이블이 되지 않는다. 대신 이걸 상속한
  * 엔티티(User, Book, Quote ...)의 테이블에 created_at / updated_at 컬럼으로 합쳐진다.
  * 즉 "공통 컬럼을 한 곳에 모아 상속으로 재사용"하는 장치다.
  *
- * <p>값은 {@code AuditingEntityListener}가 자동으로 채운다. 이게 동작하려면 진입점
- * (MitjulApplication)에 {@code @EnableJpaAuditing}이 켜져 있어야 한다 — 이미 켜 두었다.
+ * 값은 AuditingEntityListener가 자동으로 채운다. 이게 동작하려면 진입점
+ * (MitjulApplication)에 @EnableJpaAuditing이 켜져 있어야 한다 — 이미 켜 두었다.
  */
 @Getter
 @MappedSuperclass

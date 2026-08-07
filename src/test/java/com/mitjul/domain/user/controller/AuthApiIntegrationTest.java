@@ -16,9 +16,9 @@ import org.springframework.http.ResponseEntity;
 /**
  * 실제 내장 톰캣을 띄워(RANDOM_PORT) HTTP 요청을 보내는 통합 테스트.
  *
- * <p>왜 이게 필요한가: MockMvc 슬라이스는 서블릿의 {@code /error} forward를 실제로 재현하지 않아,
+ * 왜 이게 필요한가: MockMvc 슬라이스는 서블릿의 /error forward를 실제로 재현하지 않아,
  * "에러가 403으로 둔갑하던" 보안 설정 버그를 놓쳤다. 이 테스트는 진짜 서버를 거치므로 그 부류의
- * 버그를 잡아낸다(회귀 방지). {@code /error}를 permitAll에서 빼면 두 번째 테스트가 400 대신 403으로 깨진다.
+ * 버그를 잡아낸다(회귀 방지). /error를 permitAll에서 빼면 두 번째 테스트가 400 대신 403으로 깨진다.
  */
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class AuthApiIntegrationTest {

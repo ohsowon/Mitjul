@@ -17,7 +17,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 /**
  * Spring Security 설정.
  *
- * <p>이 서비스는 <b>JWT 기반 stateless REST API</b>다. 세션·폼로그인을 끄고, 요청마다 JWT로 인증한다.
+ * 이 서비스는 JWT 기반 stateless REST API다. 세션·폼로그인을 끄고, 요청마다 JWT로 인증한다.
  */
 @Configuration
 @EnableWebSecurity

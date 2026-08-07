@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 /**
  * 밑줄(mitjul) 애플리케이션 진입점.
  *
- * <p>JPA Auditing(createdAt/updatedAt 자동 기록)은 {@code global/config/JpaAuditingConfig}에서 켠다.
+ * JPA Auditing(createdAt/updatedAt 자동 기록)은 global/config/JpaAuditingConfig에서 켠다.
  */
 @SpringBootApplication
 public class MitjulApplication {

@@ -14,10 +14,10 @@ import org.springframework.context.annotation.Import;
 /**
  * UserRepository 슬라이스 테스트.
  *
- * <p>{@code @DataJpaTest}는 JPA 관련 빈(리포지토리, EntityManager)만 올리는 "얇은" 테스트다.
+ * 여기 쓴 @DataJpaTest는 JPA 관련 빈(리포지토리, EntityManager)만 올리는 "얇은" 테스트다.
  * 웹 계층 등은 로드하지 않아 빠르고, 각 테스트를 트랜잭션으로 감싼 뒤 끝나면 롤백해 서로 격리된다.
  *
- * <p>{@code @Import(JpaAuditingConfig.class)}가 필요한 이유: 이 슬라이스는 메인 클래스 설정을
+ * 여기서 @Import(JpaAuditingConfig.class)가 필요한 이유: 이 슬라이스는 메인 클래스 설정을
  * 통째로 안 불러오므로 감사 설정이 빠진다. 그러면 createdAt(not null)이 채워지지 않아 저장이 실패한다.
  * 그래서 감사 설정만 콕 집어 가져온다.
  */

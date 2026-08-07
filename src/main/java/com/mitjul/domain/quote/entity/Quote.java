@@ -20,16 +20,16 @@ import lombok.NoArgsConstructor;
 /**
  * 문장(밑줄 그은 문장) 엔티티 — 서비스의 핵심 데이터.
  *
- * <p>한 문장은 한 명의 User가 한 권의 Book에서 수집한다. 그래서 User·Book과 각각
- * {@code @ManyToOne} 관계를 맺는다. FK(user_id, book_id)를 가진 "다(N)" 쪽이 Quote다.
+ * 한 문장은 한 명의 User가 한 권의 Book에서 수집한다. 그래서 User·Book과 각각
+ * 이렇게 @ManyToOne 관계를 맺는다. FK(user_id, book_id)를 가진 "다(N)" 쪽이 Quote다.
  *
- * <p><b>지연 로딩(LAZY)을 명시한 이유</b>: {@code @ManyToOne}의 기본값은 EAGER라, Quote를 조회할
+ * 지연 로딩(LAZY)을 명시한 이유: @ManyToOne의 기본값은 EAGER라, Quote를 조회할
  * 때마다 User·Book을 항상 조인해 가져온다(불필요한 쿼리와 N+1의 원인). LAZY로 두면 그 연관을 실제로
  * 쓸 때만 조회한다. 대신 연관 객체는 트랜잭션(=Service) 안에서 접근해야 한다 — 이것이 application.yml의
- * {@code open-in-view: false}와 직결된다. 컨트롤러까지 엔티티를 들고 나가 LAZY 필드를 건드리면 세션이
- * 닫혀 {@code LazyInitializationException}이 난다. 그래서 Service 안에서 DTO로 변환해 반환한다.
+ * open-in-view: false와 직결된다. 컨트롤러까지 엔티티를 들고 나가 LAZY 필드를 건드리면 세션이
+ * 닫혀 LazyInitializationException이 난다. 그래서 Service 안에서 DTO로 변환해 반환한다.
  *
- * <p>연관을 단방향(Quote → User/Book)으로만 둔 이유: User·Book에 {@code @OneToMany}를 달지 않아도
+ * 연관을 단방향(Quote → User/Book)으로만 둔 이유: User·Book에 @OneToMany를 달지 않아도
  * 이 서비스 기능은 충분하다. 양방향은 동기화 부담만 늘리므로 필요할 때만 추가한다.
  */
 @Entity
