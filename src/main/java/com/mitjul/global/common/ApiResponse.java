@@ -33,8 +33,13 @@ public class ApiResponse<T> {
         return new ApiResponse<>(true, data, message);
     }
 
-    /** 실패 응답. 전역 예외 처리(마일스톤 3)에서 사용한다. */
+    /** 실패 응답 (본문 없음). */
     public static ApiResponse<Void> error(String message) {
         return new ApiResponse<>(false, null, message);
+    }
+
+    /** 실패 응답 (검증 필드 오류 등 부가 정보를 data에 담는다). */
+    public static <T> ApiResponse<T> error(String message, T data) {
+        return new ApiResponse<>(false, data, message);
     }
 }
