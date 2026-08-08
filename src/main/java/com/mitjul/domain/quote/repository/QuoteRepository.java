@@ -2,6 +2,8 @@ package com.mitjul.domain.quote.repository;
 
 import com.mitjul.domain.quote.entity.Quote;
 import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -15,6 +17,9 @@ public interface QuoteRepository extends JpaRepository<Quote, Long> {
 
     /** 특정 사용자의 문장 목록 (내 문장 목록, CLAUDE.md §5) */
     List<Quote> findByUserId(Long userId);
+
+    /** 특정 사용자의 문장 목록 - 페이징 (내 문장 목록 API에서 사용) */
+    Page<Quote> findByUserId(Long userId, Pageable pageable);
 
     /** 공개(isPublic=true) 문장만 (커뮤니티 피드, CLAUDE.md §5) */
     List<Quote> findByIsPublicTrue();
