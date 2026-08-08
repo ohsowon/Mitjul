@@ -21,3 +21,10 @@ spring:
 logging:
   level:
     root: info
+
+# 운영에서는 API 문서를 외부에 노출하지 않는다.
+springdoc:
+  api-docs:
+    enabled: false
+  swagger-ui:
+    enabled: false

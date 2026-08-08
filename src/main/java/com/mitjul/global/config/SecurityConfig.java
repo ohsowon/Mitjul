@@ -31,6 +31,9 @@ public class SecurityConfig {
             "/api/v1/auth/**", // 회원가입·로그인
             "/h2-console/**",  // 개발용 H2 콘솔 (dev 프로필에서만 실제로 켜짐)
             "/error",          // 에러 처리용 forward 경로. 안 열면 모든 에러 응답이 403으로 둔갑한다.
+            "/swagger-ui/**",  // Swagger UI 정적 리소스
+            "/swagger-ui.html",
+            "/v3/api-docs/**", // OpenAPI 문서(JSON)
     };
 
     @Bean

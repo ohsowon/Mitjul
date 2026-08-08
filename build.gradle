@@ -53,8 +53,8 @@ dependencies {
 	testImplementation 'org.springframework.security:spring-security-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
-	// 아래는 해당 마일스톤(CLAUDE.md §10)에서 추가한다.
-	//  M3 문서화: org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.17
+	// --- API 문서화 (Swagger UI, 마일스톤 3) ---
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.17'
 }
 
 tasks.named('test') {
