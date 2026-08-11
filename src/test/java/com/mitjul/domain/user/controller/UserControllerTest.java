@@ -20,7 +20,6 @@ import org.springframework.transaction.annotation.Transactional;
 @AutoConfigureMockMvc
 @Transactional
 class UserControllerTest {
-
     @Autowired
     private MockMvc mockMvc;
     @Autowired

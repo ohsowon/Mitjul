@@ -27,7 +27,6 @@ import org.springframework.transaction.annotation.Transactional;
 @AutoConfigureMockMvc
 @Transactional
 class QuoteControllerTest {
-
     @Autowired
     private MockMvc mockMvc;
     @Autowired

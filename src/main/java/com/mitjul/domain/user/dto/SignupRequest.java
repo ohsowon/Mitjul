@@ -5,12 +5,6 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
-/**
- * 회원가입 요청 DTO.
- *
- * 검증 애너테이션은 엔티티가 아니라 DTO에 둔다(입력 검증은 표현 계층의 관심사).
- * 컨트롤러에서 @Valid로 이 규칙들을 강제한다.
- */
 public record SignupRequest(
 
         @NotBlank(message = "이메일은 필수입니다.")
@@ -25,10 +19,6 @@ public record SignupRequest(
         @Size(min = 2, max = 30, message = "닉네임은 2자 이상 30자 이하여야 합니다.")
         String nickname
 ) {
-    /**
-     * 검증된 요청 + 해싱된 비밀번호로 User 엔티티를 만든다.
-     * 평문 비밀번호를 그대로 엔티티에 넣지 않기 위해, 해시는 Service에서 만들어 인자로 받는다.
-     */
     public User toEntity(String encodedPassword) {
         return User.builder()
                 .email(email)

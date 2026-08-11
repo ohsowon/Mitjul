@@ -19,17 +19,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 
 @SpringBootTest
-@Transactional // 각 테스트 후 롤백해 서로 격리
+@Transactional
 class UserServiceTest {
-
     @Autowired
     private UserService userService;
     @Autowired
     private UserRepository userRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
-
-    // ---------- 회원가입 ----------
 
     @Test
     @DisplayName("회원가입에 성공하면 id가 부여된 응답을 돌려준다")
@@ -63,8 +60,6 @@ class UserServiceTest {
                 .isInstanceOf(BusinessException.class)
                 .hasFieldOrPropertyWithValue("errorCode", ErrorCode.DUPLICATE_EMAIL);
     }
-
-    // ---------- 로그인 ----------
 
     @Test
     @DisplayName("올바른 자격증명으로 로그인하면 Bearer 토큰을 발급한다")

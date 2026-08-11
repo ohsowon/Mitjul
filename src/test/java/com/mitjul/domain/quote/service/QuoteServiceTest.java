@@ -23,7 +23,6 @@ import org.springframework.transaction.annotation.Transactional;
 @SpringBootTest
 @Transactional
 class QuoteServiceTest {
-
     @Autowired
     private QuoteService quoteService;
     @Autowired
@@ -74,7 +73,7 @@ class QuoteServiceTest {
                 new QuoteUpdateRequest(null, null, true));
 
         assertThat(updated.isPublic()).isTrue();
-        assertThat(updated.content()).isEqualTo(created.content()); // 내용은 그대로
+        assertThat(updated.content()).isEqualTo(created.content());
     }
 
     @Test

@@ -19,7 +19,6 @@ import org.springframework.transaction.annotation.Transactional;
 @AutoConfigureMockMvc
 @Transactional
 class AuthControllerTest {
-
     @Autowired
     private MockMvc mockMvc;
     @Autowired
@@ -50,7 +49,7 @@ class AuthControllerTest {
                                 """))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.success").value(false))
-                .andExpect(jsonPath("$.data.email").exists()); // 어떤 필드가 틀렸는지 담겨 온다
+                .andExpect(jsonPath("$.data.email").exists());
     }
 
     @Test
