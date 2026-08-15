@@ -12,4 +12,8 @@ public interface QuoteRepository extends JpaRepository<Quote, Long> {
     Page<Quote> findByUserId(Long userId, Pageable pageable);
 
     List<Quote> findByIsPublicTrue();
+
+    Page<Quote> findByIsPublicTrue(Pageable pageable);
+
+    Page<Quote> findByIsPublicTrueAndBook_TitleContaining(String bookTitle, Pageable pageable);
 }
