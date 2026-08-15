@@ -17,7 +17,7 @@ public class LocalImageStorage implements ImageStorage{
 
     private final Path baseDir;
 
-    public LocalImageStorage(@Value("{storage.local.path:upload}") String path) {
+    public LocalImageStorage(@Value("${storage.local.path:uploads}") String path) {
         this.baseDir = Paths.get(path).toAbsolutePath().normalize();
     }
 
